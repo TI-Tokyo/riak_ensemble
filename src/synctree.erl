@@ -311,7 +311,7 @@ get_path(N, Level, Shift, Segment, UpHashes, Tree, Acc) ->
     Verify = verify_hash(Expected, Hashes),
     case {Verify, N} of
         {false, _} ->
-            lager:warning("Corrupted at ~p/~p~n", [Level, Bucket]),
+            logger:warning("Corrupted at ~p/~p~n", [Level, Bucket]),
             {corrupted, Level, Bucket};
         {_, 0} ->
             Acc2;

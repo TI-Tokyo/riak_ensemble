@@ -48,7 +48,7 @@ set_ensemble(Ensemble, Info) ->
 join(Node) ->
     case call(Node, {join, node()}, 60000) of
         ok ->
-            _ = lager:info("JOIN: success"),
+            _ = logger:info("JOIN: success"),
             ok;
         Error ->
             {error, Error}
@@ -58,7 +58,7 @@ join(Node) ->
 remove(Node) ->
     case call(node(), {remove, Node}, 60000) of
         ok ->
-            _ = lager:info("REMOVE: success"),
+            _ = logger:info("REMOVE: success"),
             ok;
         Error ->
             {error, Error}
@@ -121,7 +121,7 @@ root_init() ->
 %%%===================================================================
 
 root_call({join, Node}, Vsn, State) ->
-    _ = lager:info("join(Vsn): ~p :: ~p :: ~p", [Vsn, Node, riak_ensemble_state:members(State)]),
+    _ = logger:info("join(Vsn): ~p :: ~p :: ~p", [Vsn, Node, riak_ensemble_state:members(State)]),
     case riak_ensemble_state:add_member(Vsn, Node, State) of
         {ok, State2} ->
             State2;
@@ -129,7 +129,7 @@ root_call({join, Node}, Vsn, State) ->
             failed
     end;
 root_call({remove, Node}, Vsn, State) ->
-    _ = lager:info("remove(Vsn): ~p :: ~p :: ~p", [Vsn, Node, riak_ensemble_state:members(State)]),
+    _ = logger:info("remove(Vsn): ~p :: ~p :: ~p", [Vsn, Node, riak_ensemble_state:members(State)]),
     case riak_ensemble_state:del_member(Vsn, Node, State) of
         {ok, State2} ->
             State2;

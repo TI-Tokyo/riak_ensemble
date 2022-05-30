@@ -170,7 +170,7 @@ set_pending(Vsn, Ensemble, Views, State=?STATE{pending=Pending}) ->
 
 -spec merge(state(), state()) -> state().
 merge(A, B) when A?STATE.enabled and (A?STATE.id =/= B?STATE.id) ->
-    _ = lager:warning("Ignoring cluster state with different id"),
+    _ = logger:warning("Ignoring cluster state with different id"),
     A;
 merge(A=?STATE{members=MembersA, ensembles=EnsemblesA, pending=PendingA},
       _=?STATE{members=MembersB, ensembles=EnsemblesB, pending=PendingB}) ->
